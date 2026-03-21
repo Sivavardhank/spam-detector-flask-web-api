@@ -1,6 +1,6 @@
 # Spam Detector 🚀
 
-A Python Flask web app that detects **spam messages** using **Logistic Regression** and **TF-IDF vectorization**.  
+A Python Flask web app that detects **spam messages** using **Random Forest** and **TF-IDF vectorization**.  
 This project is **mini but portfolio-ready**, demonstrating Machine Learning, Python, and web development skills.
 
 ---
