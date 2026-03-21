@@ -39,10 +39,10 @@ def home():
     prob_spam = 0
     prob_ham = 0
     highlighted_msg = ""
-    threshold = 0.2  # default threshold
+    threshold = 0.1  # default threshold
     if request.method == "POST":
         msg = request.form["message"]
-        threshold = float(request.form.get("threshold", 0.2))
+        threshold = float(request.form.get("threshold", 0.1))
         msg_clean = clean_text(msg)
         msg_vec = vectorizer.transform([msg_clean])
         prob = model.predict_proba(msg_vec)[0]
