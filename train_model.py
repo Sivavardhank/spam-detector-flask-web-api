@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import confusion_matrix
 
 # ------------------------
 # 1️⃣ LOAD DATASET
@@ -60,6 +61,8 @@ pred = model.predict(X_test)
 print("Accuracy  :", accuracy_score(y_test, pred))
 print("Precision :", precision_score(y_test, pred))
 print("Recall    :", recall_score(y_test, pred))
+cm = confusion_matrix(y_test, pred)
+print(cm)
 
 # ------------------------
 # 8️⃣ SAVE MODEL & VECTORIZER
