@@ -7,7 +7,7 @@ import pickle
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 from sklearn.metrics import confusion_matrix
 
@@ -50,9 +50,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # ------------------------
 # 6️⃣ TRAIN MODEL
-# ------------------------
-model = LogisticRegression(max_iter=1000)  # Increase iterations to avoid warnings
-model.fit(X_train, y_train)
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)    ##n_estimators=100
+
+## Number of trees
+##More trees → better (but slower)     
 
 # ------------------------
 # 7️⃣ PREDICT & EVALUATE
@@ -61,6 +63,7 @@ pred = model.predict(X_test)
 print("Accuracy  :", accuracy_score(y_test, pred))
 print("Precision :", precision_score(y_test, pred))
 print("Recall    :", recall_score(y_test, pred))
+
 cm = confusion_matrix(y_test, pred)
 print(cm)
 
@@ -70,4 +73,17 @@ print(cm)
 pickle.dump(model, open("model.pkl", "wb"))
 pickle.dump(vectorizer, open("vectorizer.pkl", "wb"))
 
-print("✅ Model and vectorizer saved successfully!")
+print("✅ Model and vectorizer saved successfully!")    
+
+## Which words/features are most important for prediction
+
+import numpy as np
+
+feature_names = vectorizer.get_feature_names_out()
+importances = model.feature_importances_
+
+# Get top 10 important features
+indices = np.argsort(importances)[-10:]
+
+for i in indices:
+    print(feature_names[i], importances[i])
