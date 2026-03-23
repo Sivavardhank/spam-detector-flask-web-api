@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Detector 🚀</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#f2f2f2; padding:50px; }
+        .container { max-width:700px; margin:auto; background:white; padding:30px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+        input[type=text] { width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; }
+        input[type=submit] { padding:10px 20px; border:none; border-radius:5px; background:#4CAF50; color:white; cursor:pointer; }
+        h2 { color:#333; }
+        .result { font-size:20px; margin-top:20px; }
+        .prob { color:gray; font-size:16px; }
+        .highlighted { font-weight:bold; margin-top:10px; font-size:18px; }
+        .slider-container { margin:10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Spam Detector 🚀</h2>
+        <form method="POST">
+            <input type="text" name="message" placeholder="Enter your message" required>
+            <div class="slider-container">
+                <label>Spam Threshold: {{ threshold }}</label><br>
+                <input type="range" name="threshold" min="0.0" max="1.0" step="0.01" value="{{ threshold }}">
+            </div>
+            <input type="submit" value="Check">
+        </form>
+        {% if result %}
+            <div class="result">{{ result }}</div>
+            <div class="prob">Not Spam Probability: {{ prob_ham }} | Spam Probability: {{ prob_spam }}</div>
+            <div class="highlighted">Message: {{ highlighted_msg | safe }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
