@@ -1,21 +1,44 @@
-<!DOCTYPE html>
-<html>
+ <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Spam Detector</title>
+    <meta charset="UTF-8">
+    <title>Spam Detection App 🚀</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-    <h2>Spam Detection App</h2>
+<div class="container">
+
+    <h1>📩 Spam Detection System</h1>
+    <p class="subtitle">Enter a message to check whether it's Spam or Not</p>
 
     <form method="POST">
-        <textarea name="message" rows="5" cols="40"></textarea>
-        <br><br>
-        <button type="submit">Predict</button>
+        <textarea name="message" placeholder="Type your message here..." required></textarea>
+
+        <label>Threshold: {{ threshold }}</label>
+        <input type="range" name="threshold" min="0" max="1" step="0.01" value="{{ threshold }}">
+
+        <button type="submit">Analyze</button>
     </form>
 
-    <h3>{{ result }}</h3>
-    <p>Spam: {{ prob_spam }}</p>
-    <p>Ham: {{ prob_ham }}</p>
+    {% if result %}
+    <div class="result-box">
+        <h2>{{ result }}</h2>
+        <p><strong>Spam Probability:</strong> {{ prob_spam }}</p>
+        <p><strong>Ham Probability:</strong> {{ prob_ham }}</p>
+
+        <p><strong>Highlighted Message:</strong></p>
+        <div class="highlight">{{ highlighted_msg | safe }}</div>
+    </div>
+    {% endif %}
+
+</div>
 
 </body>
 </html>
